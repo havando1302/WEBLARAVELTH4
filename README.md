@@ -1,92 +1,129 @@
-📚 BookStore - Trang Web Bán Sách Online
-BookStore là một nền tảng thương mại điện tử giúp người dùng dễ dàng tìm kiếm, mua bán và đánh giá các loại sách đa dạng. Dự án hướng tới trải nghiệm mua sách trực tuyến nhanh chóng, tiện lợi và thân thiện với người dùng.
+📚 BookStore - Trang Web Bán Sách Online 
 
-🚀 Tính Năng
-Tìm kiếm và duyệt sách theo thể loại, tác giả, nhà xuất bản
+BookStore là một trang web thương mại điện tử giúp người dùng dễ dàng tìm kiếm, mua và đánh giá các loại sách. Website được phát triển bằng Laravel - Framework PHP mạnh mẽ, bảo mật và dễ mở rộng.
 
-Xem chi tiết thông tin sách, đánh giá và bình luận
+🚀 Tính Năng Chính
 
-Thêm sách vào giỏ hàng và thanh toán đơn giản
+Tìm kiếm sách theo tên, tác giả, thể loại
 
-Đăng ký, đăng nhập và quản lý tài khoản cá nhân
+Xem chi tiết sách, đánh giá và bình luận sách
 
-Quản trị viên quản lý sản phẩm, đơn hàng, người dùng
+Thêm sách vào giỏ hàng, đặt hàng và thanh toán
 
-Giao diện thân thiện, tối ưu cho cả máy tính và di động
+Đăng ký, đăng nhập, quản lý thông tin cá nhân
+
+Quản lý sách, đơn hàng và người dùng (dành cho Admin)
+
+Giao diện thân thiện, hiển thị tốt trên cả desktop và mobile
 
 🛠️ Công Nghệ Sử Dụng
 
-Front-end: ReactJS / VueJS / Angular (tuỳ chỉnh theo dự án của bạn)
+Framework: Laravel 10.x (PHP 8.x)
 
-Back-end: Node.js + Express / Django / Laravel
+Database: MySQL / MariaDB
 
-Database: MongoDB / MySQL / PostgreSQL
+Frontend: Blade Template, Bootstrap 5, jQuery
 
-Authentication: JWT / OAuth2
+Authentication: Laravel Breeze / Laravel Jetstream
 
-Deployment: Vercel / Heroku / AWS / Docker
+Quản lý gói: Composer, npm
 
 🎬 Hướng Dẫn Cài Đặt
 
-Clone repository:
+Clone dự án về máy:
 
 bash
 
 Copier
 
-git clone https://github.com/yourusername/bookstore.git
+git clone https://github.com/yourusername/bookstore-laravel.git
 
-cd bookstore
+cd bookstore-laravel
 
-Cài đặt dependencies:
-
-
-bash
-
-Copier
-
-# Nếu dùng Node.js
-
-npm install
-
-# Nếu dùng Python
-
-pip install -r requirements.txt
-
-Cấu hình biến môi trường (.env):
-
-
-Copier
-
-DB_URL=your_database_url
-
-JWT_SECRET=your_secret_key
-
-Chạy dự án:
+Cài đặt các package bằng Composer:
 
 bash
 
 Copier
 
-# Nếu dùng Node.js
+composer install
 
-npm start
+Cài đặt frontend dependencies:
 
-# Nếu dùng Python
+bash
 
-python manage.py runserver
+Copier
 
-Truy cập trang web tại http://localhost:3000 (hoặc cổng bạn đã cấu hình)
+npm install && npm run dev
+
+Tạo file cấu hình môi trường:
+
+bash
+
+Copier
+
+cp .env.example .env
+
+Sau đó chỉnh sửa thông tin kết nối database trong file .env:
+
+
+Copier
+
+DB_DATABASE=ten_database
+
+DB_USERNAME=ten_user
+
+DB_PASSWORD=mat_khau
+
+Sinh key ứng dụng:
+
+bash
+
+Copier
+
+php artisan key:generate
+
+Chạy migrate và seed dữ liệu mẫu (nếu có):
+
+bash
+
+Copier
+
+php artisan migrate --seed
+
+Khởi động server:
+
+bash
+
+Copier
+
+php artisan serve
+
+Truy cập tại: http://localhost:8000
 
 📷 Demo
 
-Demo giao diện BookStore
+<img src="demo-screenshot.png" alt="Demo giao diện BookStore" width="600">
+
+💡 Một Số Tài Khoản Mẫu
+
+Admin:
+
+Email: admin@example.com
+
+Mật khẩu: password
+
+Khách hàng:
+
+Email: user@example.com
+
+Mật khẩu: password
 
 📄 License
 
-Dự án được phát triển với mục đích học tập. Vui lòng tham khảo file LICENSE để biết thêm chi tiết.
+Dự án phục vụ mục đích học tập và phi lợi nhuận. Vui lòng xem chi tiết trong file LICENSE.
 
 ✨ Đóng Góp
 
-Mọi đóng góp đều được chào đón! Bạn có thể tạo Issue hoặc gửi Pull Request để cùng phát triển dự án.
+Mọi ý kiến đóng góp, sửa lỗi hoặc tính năng mới đều rất hoan nghênh. Vui lòng mở Issues hoặc Pull Request để cùng phát triển dự án.
 
