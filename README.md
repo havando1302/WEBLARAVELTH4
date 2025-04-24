@@ -3,8 +3,11 @@ BookStore là một nền tảng thương mại điện tử giúp người dùn
 
 🚀 Tính Năng
 Tìm kiếm và duyệt sách theo thể loại, tác giả, nhà xuất bản
+
 Xem chi tiết thông tin sách, đánh giá và bình luận
+
 Thêm sách vào giỏ hàng và thanh toán đơn giản
+
 Đăng ký, đăng nhập và quản lý tài khoản cá nhân
 Quản trị viên quản lý sản phẩm, đơn hàng, người dùng
 Giao diện thân thiện, tối ưu cho cả máy tính và di động
