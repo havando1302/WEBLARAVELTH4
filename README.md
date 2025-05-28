@@ -1,129 +1,61 @@
-📚 BookStore - Trang Web Bán Sách Online 
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-BookStore là một trang web thương mại điện tử giúp người dùng dễ dàng tìm kiếm, mua và đánh giá các loại sách. Website được phát triển bằng Laravel - Framework PHP mạnh mẽ, bảo mật và dễ mở rộng.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-🚀 Tính Năng Chính
+## About Laravel
 
-Tìm kiếm sách theo tên, tác giả, thể loại
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-Xem chi tiết sách, đánh giá và bình luận sách
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Thêm sách vào giỏ hàng, đặt hàng và thanh toán
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-Đăng ký, đăng nhập, quản lý thông tin cá nhân
+## Learning Laravel
 
-Quản lý sách, đơn hàng và người dùng (dành cho Admin)
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-Giao diện thân thiện, hiển thị tốt trên cả desktop và mobile
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-🛠️ Công Nghệ Sử Dụng
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-Framework: Laravel 10.x (PHP 8.x)
+## Laravel Sponsors
 
-Database: MySQL / MariaDB
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-Frontend: Blade Template, Bootstrap 5, jQuery
+### Premium Partners
 
-Authentication: Laravel Breeze / Laravel Jetstream
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
-Quản lý gói: Composer, npm
+## Contributing
 
-🎬 Hướng Dẫn Cài Đặt
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-Clone dự án về máy:
+## Code of Conduct
 
-bash
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-Copier
+## Security Vulnerabilities
 
-git clone https://github.com/yourusername/bookstore-laravel.git
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-cd bookstore-laravel
+## License
 
-Cài đặt các package bằng Composer:
-
-bash
-
-Copier
-
-composer install
-
-Cài đặt frontend dependencies:
-
-bash
-
-Copier
-
-npm install && npm run dev
-
-Tạo file cấu hình môi trường:
-
-bash
-
-Copier
-
-cp .env.example .env
-
-Sau đó chỉnh sửa thông tin kết nối database trong file .env:
-
-
-Copier
-
-DB_DATABASE=ten_database
-
-DB_USERNAME=ten_user
-
-DB_PASSWORD=mat_khau
-
-Sinh key ứng dụng:
-
-bash
-
-Copier
-
-php artisan key:generate
-
-Chạy migrate và seed dữ liệu mẫu (nếu có):
-
-bash
-
-Copier
-
-php artisan migrate --seed
-
-Khởi động server:
-
-bash
-
-Copier
-
-php artisan serve
-
-Truy cập tại: http://localhost:8000
-
-📷 Demo
-
-<img src="demo-screenshot.png" alt="Demo giao diện BookStore" width="600">
-
-💡 Một Số Tài Khoản Mẫu
-
-Admin:
-
-Email: admin@example.com
-
-Mật khẩu: password
-
-Khách hàng:
-
-Email: user@example.com
-
-Mật khẩu: password
-
-📄 License
-
-Dự án phục vụ mục đích học tập và phi lợi nhuận. Vui lòng xem chi tiết trong file LICENSE.
-
-✨ Đóng Góp
-
-Mọi ý kiến đóng góp, sửa lỗi hoặc tính năng mới đều rất hoan nghênh. Vui lòng mở Issues hoặc Pull Request để cùng phát triển dự án.
-
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

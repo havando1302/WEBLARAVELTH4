@@ -1,0 +1,19 @@
+
+
+.product-card h3 {
+    color: #1a202c;
+}
+
+.product-card p {
+    color: #4a5568;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
