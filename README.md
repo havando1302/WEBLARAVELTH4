@@ -12,7 +12,6 @@
 - Xem danh sách sản phẩm thời trang
 - Xem chi tiết sản phẩm
 - Tìm kiếm sản phẩm
-- Lọc sản phẩm theo danh mục
 - Thêm sản phẩm vào giỏ hàng
 - Đặt hàng (Checkout)
 - Đăng ký / Đăng nhập
