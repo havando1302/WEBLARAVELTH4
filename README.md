@@ -44,9 +44,6 @@
 ### Bước cài đặt
 
 ```bash
-# Clone repository
-git clone https://github.com/your-username/fashion-store.git
-cd fashion-store
 
 # Cài đặt các thư viện PHP
 composer install
