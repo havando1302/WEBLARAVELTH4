@@ -1,52 +1,86 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+@extends('layouts.app')
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+@section('title', 'Đăng ký')
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+<link rel="stylesheet" href="{{ asset('assets/css/base.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+<link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome-free-6.6.0/css/all.min.css') }}">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+<style>
+    .main-content {
+    position: relative;
+    z-index: 1;
+}
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+.main-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('{{ asset('assets/img/DALL.webp') }}');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; /* Hoặc 'contain' nếu muốn vừa khung mà không cắt ảnh */
+    opacity: 0.2; /* Làm mờ ảnh */
+    z-index: -1; /* Ảnh nằm dưới nội dung */
+    pointer-events: none; /* Không chặn thao tác chuột */
+}
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+</style>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+@section('content')
+<div class="modal js_modal" style="display: flex; position: relative;">
+    <div class="modal_body" style="margin: auto; max-width: 500px;">
+        <!-- Register Form -->
+        <form method="POST" action="{{ route('register') }}" class="auth_form js_register-form" style="display: block;">
+            @csrf
+            <div class="auth_form-header">
+                <h3 class="auth_form-heading">ĐĂNG KÝ</h3>
+                <a href="{{ route('login') }}" class="auth_form-switch">ĐĂNG NHẬP</a>
+            </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+            <div class="auth_form-form">
+                <div class="auth_form-group">
+                    <input type="text" name="name" class="auth_form-input" placeholder="Tên đăng nhập" value="{{ old('name') }}" required>
+                    @error('name')
+                        <span style="color: red;">{{ $message }}</span>
+                    @enderror
+                </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+                <div class="auth_form-group">
+                    <input type="email" name="email" class="auth_form-input" placeholder="Email" value="{{ old('email') }}" required>
+                    @error('email')
+                        <span style="color: red;">{{ $message }}</span>
+                    @enderror
+                </div>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                <div class="auth_form-group">
+                    <input type="password" name="password" class="auth_form-input" placeholder="Mật khẩu" required>
+                    @error('password')
+                        <span style="color: red;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="auth_form-group">
+                    <input type="password" name="password_confirmation" class="auth_form-input" placeholder="Nhập lại mật khẩu" required>
+                </div>
+            </div>
+
+            <div class="auth_form-aside">
+                <p class="auth_form-policy">
+                    Dữ liệu cá nhân của bạn sẽ được sử dụng để hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này,
+                    quản lý quyền truy cập vào tài khoản của bạn, và cho các mục đích khác được mô tả trong chính sách riêng tư của chúng tôi.
+                </p>
+            </div>
+
+            <div class="auth_form-controls">
+                <a href="{{ url()->previous() }}" class="btn btn_back">TRỞ LẠI</a>
+                <button type="submit" class="btn btn_register btn_login-register">ĐĂNG KÝ</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

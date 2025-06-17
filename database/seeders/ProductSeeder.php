@@ -4,72 +4,69 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
 class ProductSeeder extends Seeder
 {
     public function run()
     {
-        $productsDirectory = 'products'; // Thư mục con trong storage/app/public/
-
-        // 1. Đảm bảo thư mục storage/app/public/products tồn tại
+        // Tạo thư mục lưu ảnh nếu chưa có
+        $productsDirectory = 'products'; 
         if (!Storage::disk('public')->exists($productsDirectory)) {
             Storage::disk('public')->makeDirectory($productsDirectory);
         }
 
-        
+        // Tạo category mặc định
+        $defaultCategory = Category::firstOrCreate(['name' => 'Thời Trang']);
 
+        // Dữ liệu sản phẩm
         $productsData = [
             [
-                'name' => 'Áo Phông Cotton Cao Cấp',
-                'description' => 'Chất liệu cotton thoáng mát, thiết kế trẻ trung, phù hợp cho mọi hoạt động.',
+                'name' => 'Áo Len Nữ',
+                'description' => 'Sản phẩm hot trend nhất năm 2025, được rất nhiều các bạn trẻ săn đón',
                 'price' => 280000,
                 'stock' => 75,
-                'image_url' => $productsDirectory ,
+                'image_url' => 'assets/img/Lennu.jpg', 
             ],
             [
-                'name' => 'Quần Tây Công Sở Lịch Lãm',
-                'description' => 'Form dáng chuẩn, vải không nhăn, mang lại vẻ chuyên nghiệp và tự tin.',
-                'price' => 450000,
+                'name' => 'Quần Jean Nam',
+                'description' => 'Quần jean nam chất lượng cao, phù hợp với mọi dịp',
+                'price' => 150000,
                 'stock' => 40,
-                'image_url' => $productsDirectory ,
+                'image_url' => 'assets/img/Nam.jpg',
             ],
             [
-                'name' => 'Giày Thể Thao NIKE Air Max',
-                'description' => 'Công nghệ Air Max êm ái, thiết kế năng động, siêu nhẹ và bền bỉ.',
-                'price' => 1850000,
+                'name' => 'Giày Thể Thao Nữ',
+                'description' => 'Sản phẩm đáng mua nhất trên thị trường',
+                'price' => 85000,
                 'stock' => 25,
-                'image_url' => $productsDirectory ,
+                'image_url' => 'assets/img/GiayNu.webp', // Ảnh tĩnh
             ],
             [
-                'name' => 'Kính Mát Thời Trang Chống UV',
-                'description' => 'Bảo vệ mắt tối ưu khỏi tia UV, gọng kính chắc chắn, kiểu dáng hiện đại.',
-                'price' => 350000,
-                'stock' => 60,
-                'image_url' => $productsDirectory ,
-            ],
-            [
-                'name' => 'Đồng Hồ Thông Minh Z-Series',
-                'description' => 'Theo dõi sức khỏe, thông báo tiện lợi, pin trâu, chống nước.',
-                'price' => 1200000,
+                'name' => 'Kính Mát Nam',
+                'description' => 'Kính mát thời trang, bảo vệ mắt khỏi tia UV',
+                'price' => 180000,
                 'stock' => 30,
-                'image_url' => null, 
+                'image_url' => 'assets/img/KM.webp'
             ],
         ];
 
-        foreach ($productsData as $productDetails) {
-            // Tùy chọn: Kiểm tra xem file ảnh mẫu có thực sự tồn tại không
-            if ($productDetails['image_url'] && !Storage::disk('public')->exists($productDetails['image_url'])) {
-                // echo "Cảnh báo: File ảnh mẫu '{$productDetails['image_url']}' không tồn tại cho sản phẩm '{$productDetails['name']}'. Đặt image_url thành null.\n";
-                $productDetails['image_url'] = null;
+        foreach ($productsData as &$productDetails) {
+            $productDetails['category_id'] = $defaultCategory->id;
+
+            // Nếu ảnh dùng assets/img (ảnh tĩnh) thì không cần kiểm tra tồn tại
+            if (!str_starts_with($productDetails['image_url'], 'assets/img')) {
+                // Chỉ kiểm tra tồn tại nếu là ảnh lưu trong storage
+                if (!Storage::disk('public')->exists($productDetails['image_url'])) {
+                    $productDetails['image_url'] = null;
+                }
             }
 
             Product::updateOrCreate(
-                ['name' => $productDetails['name']], // Điều kiện để tìm (hoặc tạo mới nếu không tìm thấy)
-                $productDetails // Dữ liệu để tạo hoặc cập nhật
+                ['name' => $productDetails['name']],
+                $productDetails
             );
         }
-
-      
     }
 }

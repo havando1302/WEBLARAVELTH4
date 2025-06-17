@@ -7,11 +7,20 @@ use Illuminate\Http\Request;
 
 class AdminMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role !== 'admin') {
-            return redirect('/')->with('error', 'Bạn không có quyền truy cập.');
+        // Nếu chưa đăng nhập, chuyển hướng đến trang login
+        if (!auth()->check()) {
+            return redirect()->route('login');
         }
+    
+        // Nếu đã đăng nhập nhưng không phải admin, báo lỗi 403
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Bạn không có quyền truy cập.');
+        }
+    
         return $next($request);
     }
+    
+
 }

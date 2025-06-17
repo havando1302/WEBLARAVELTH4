@@ -1,289 +1,382 @@
-<style>
-/* CSS cho navigation.blade.php */
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DOHAFASHION</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-/* Reset cơ bản */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
 
-/* Navbar nền trắng, border dưới */
-nav {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb; /* gray-100 */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    .header {
+        background-color: white;
+        border-bottom: 1px solid #ccc;
+    }
 
-/* Container trong nav */
-nav > div.max-w-7xl {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
+    .header_intro {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 40px;
+        background-color:  #e2a57c;
+        font-size: 14px;
+        color: #333;
+    }
 
-/* Flex căn giữa, giữa trục dọc */
-nav .flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 4rem; /* 64px */
-}
+    .header_intro-list {
+        display: flex;
+        list-style: none;
+    }
 
-/* Logo */
-nav .flex > div:first-child .text-2xl {
-    font-weight: 700;
-    color: #111827; /* gray-900 */
-    letter-spacing: 0.05em;
-    cursor: default;
-    user-select: none;
-}
+    .header_intro-item {
+        margin-right: 20px;
+        position: relative;
+    }
 
-/* Menu chính (desktop) */
-nav .menu-links {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-}
+    .header_intro-icon {
+        margin-right: 5px;
+        color: #333;
+    }
 
-/* Xác định link trong nav */
-nav x-nav-link {
-    font-weight: 600;
-    color: #4b5563; /* gray-600 */
-    text-decoration: none;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.375rem; /* 6px */
-    transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    font-size: 1rem;
-}
+    .tooltip .subintro {
+        display: none;
+        position: absolute;
+        background: #333;
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 4px;
+        top: 25px;
+        left: 0;
+        font-size: 12px;
+        white-space: nowrap;
+    }
 
-/* Link active */
-nav x-nav-link[active="true"],
-nav x-nav-link:hover {
-    background-color: #2563eb; /* blue-600 */
-    color: white;
-}
+    .tooltip:hover .subintro {
+        display: block;
+    }
 
-/* Địa chỉ & số điện thoại */
-nav .text-sm.text-gray-500 {
-    color: #6b7280; /* gray-500 */
-    font-size: 0.875rem;
-    margin-left: 2rem;
-    white-space: nowrap;
-}
+    .header_navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 40px;
+        background-color: white;
+        position: relative;
+    }
 
-/* Khu vực tài khoản (dropdown) */
-nav .account-area {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-left: auto;
-}
+    .header_navbar-logo img {
+        height: 100px;
+        width: auto;
+        
+    }
 
-/* Nút thông báo */
-nav .account-area .notification {
-    position: relative;
-    font-size: 1.25rem;
-    color: #4b5563;
-    transition: color 0.3s ease;
-    cursor: pointer;
-}
+    .header_navbar-list {
+        display: flex;
+        list-style: none;
+        gap: 50px;
+    }
 
-nav .account-area .notification:hover {
-    color: #111827;
-}
+    .header_navbar-item {
+        margin: 0 15px;
+        font-weight: 500;
+        position: relative;
+    }
 
-/* Badge số thông báo */
-nav .account-area .notification span {
-    position: absolute;
-    top: -4px;
-    right: -8px;
-    background-color: #ef4444; /* red-500 */
-    color: white;
-    font-size: 0.65rem;
-    padding: 0 5px;
-    border-radius: 9999px;
-    font-weight: 700;
-    line-height: 1rem;
-}
+    .header_navbar-item a {
+        text-decoration: none;
+        color: #333;
+        transition: color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
 
-/* Dropdown trigger button */
-nav x-dropdown button {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.375rem 0.75rem;
-    border: 1px solid transparent;
-    font-size: 0.875rem;
-    font-weight: 500;
-    border-radius: 0.375rem;
-    background-color: #ffffff;
-    color: #4b5563;
-    cursor: pointer;
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
+    .header_navbar-item a:hover {
+        color: #ff5e57;
+    }
 
-nav x-dropdown button:hover {
-    color: #111827;
-}
+    .header_navbar-btn {
+        display: flex;
+        align-items: center;
+    }
 
-/* Dropdown icon */
-nav x-dropdown svg {
-    margin-left: 0.25rem;
-    width: 1rem;
-    height: 1rem;
-    fill: currentColor;
-}
+    .header_navbar-btn-item {
+        margin-left: 15px;
+        position: relative;
+        cursor: pointer;
+    }
 
-/* Dropdown content */
-x-dropdown-link {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #4b5563;
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: background-color 0.3s ease;
-}
+    .separator {
+        width: 1px;
+        height: 20px;
+        background-color: #ccc;
+        margin: 0 8px;
+    }
 
-x-dropdown-link:hover {
-    background-color: #f3f4f6; /* gray-100 */
-    color: #111827;
-}
+    .header_navbar-search {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        display: none;
+        z-index: 999;
+    }
 
-/* Form nút logout */
-form > x-dropdown-link {
-    cursor: pointer;
-}
+    .header_navbar-search input {
+        width: 180px;
+        padding: 6px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
 
-/* Các link khi chưa đăng nhập */
-nav .flex.space-x-6 > x-nav-link {
-    font-weight: 600;
-    color: #2563eb; /* blue-600 */
-    text-decoration: none;
-    font-size: 1rem;
-}
+    .header_navbar-btn-item i {
+        font-size: 18px;
+        color: #333;
+    }
 
-nav .flex.space-x-6 > x-nav-link:hover {
-    text-decoration: underline;
-}
+    .notification-icon {
+        position: relative;
+    }
 
-/* Ẩn nút menu mobile hoàn toàn */
-nav .mobile-menu-button {
-    display: none !important;
-}
+    .notification-count {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        background-color: red;
+        color: white;
+        font-size: 11px;
+        font-weight: bold;
+        padding: 2px 6px;
+        border-radius: 50%;
+        line-height: 1;
+    }
+
+    .header_navbar-submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        list-style: none;
+        padding: 10px 0;
+        min-width: 180px;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    }
+
+    .header_navbar-submenu li {
+        padding: 8px 20px;
+    }
+
+    .header_navbar-submenu li a {
+        color: #333;
+        font-weight: 400;
+    }
+
+    .header_navbar-submenu li a:hover {
+        color: #ff5e57;
+    }
+
+    .dropdown-icon {
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    .header_navbar-dropdown > a {
+        cursor: pointer;
+    }
 </style>
 
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 items-center">
+</head>
+<body>
+<header class="header">
+    <div class="header_intro">
+        <ul class="header_intro-list">
+            <li class="header_intro-item" style="font-weight: bold;">Mặc đẹp – Sống chất – Dẫn đầu xu hướng</li>
+        </ul>
+        <ul class="header_intro-list">
+        <li class="header_intro-item" style="font-weight: bold;">
+                <i class="header_intro-icon fa-regular fa-clock"></i> 08:00 - 17:00
+            </li>
+            <li class="header_intro-item" style="font-weight: bold;">
+                <i class="header_intro-icon fa-solid fa-phone"></i> +84 337950933
+            </li>
+        </ul>
+    </div>
 
-            <!-- Logo + Menu links -->
-            <div class="flex items-center space-x-8">
-                <!-- Logo -->
-                <div class="text-2xl font-bold text-gray-900">DOHAFANSHION</div>
+    <nav class="header_navbar">
+        <a href="/" class="header_navbar-logo">
+           <img src="{{ asset('assets/img/LoGo.png') }}">
+        </a>
 
-                <!-- Menu chính -->
-                <div class="menu-links">
-                    @auth
-                        @if(auth()->user()->is_admin)
-                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                                {{ __('Trang chủ') }}
-                            </x-nav-link>
-
-                            <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
-                                {{ __('Sản phẩm') }}
-                            </x-nav-link>
-                        @else
-                            <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                                {{ __('Trang chủ') }}
-                            </x-nav-link>
-
-                            <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                                {{ __('Sản phẩm') }}
-                            </x-nav-link>
-
-                            <x-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
-                                🛒 {{ __('Giỏ hàng') }}
-                            </x-nav-link>
+        <ul class="header_navbar-list">
+            @auth
+                @if(auth()->user()->is_admin)
+                    <li class="header_navbar-item"><a href="{{ route('admin.dashboard') }}">Trang chủ</a></li>
+                    <li class="header_navbar-item"><a href="{{ route('admin.products.index') }}">Sản phẩm</a></li>
+                @else
+                    <li class="header_navbar-item"><a href="{{ route('home') }}">Trang chủ</a></li>
+                    <li class="header_navbar-item header_navbar-dropdown">
+                        <a href="{{ route('products.index') }}">Sản phẩm <span class="dropdown-icon">&#9776;</span></a>
+                        @if(!empty($childCategories) && $childCategories->count())
+                            <ul class="header_navbar-submenu">
+                                @foreach($childCategories as $child)
+                                    <li>
+                                        <a href="{{ route('products.index', ['category_id' => $child->id]) }}">
+                                            {{ $child->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         @endif
-                    @else
-                        <x-nav-link :href="route('products.indexPublic')" :active="request()->routeIs('products.indexPublic')">
-                            {{ __('Trang chủ') }}
-                        </x-nav-link>
+                    </li>
+                @endif
+            @else
+            <li class="header_navbar-item"><a href="{{ route('home') }}">Trang chủ</a></li>
+                <li class="header_navbar-item header_navbar-dropdown">
+                    <a href="{{ route('products.index') }}">Sản phẩm <span class="dropdown-icon">&#9776;</span></a>
+                    @if(!empty($childCategories) && $childCategories->count())
+                        <ul class="header_navbar-submenu">
+                            @foreach($childCategories as $child)
+                                <li>
+                                    <a href="{{ route('products.index', ['category_id' => $child->id]) }}">
+                                        {{ $child->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </li>
+            @endauth
 
-                        <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                            {{ __('Sản phẩm') }}
-                        </x-nav-link>
+            <li class="header_navbar-item"><a href="{{ url('/introduce') }}">Giới thiệu</a></li>
 
-                        <x-nav-link :href="route('login')">
-                            🛒 {{ __('Giỏ hàng') }}
-                        </x-nav-link>
-                    @endauth
+            
+            @auth
+                @if(auth()->user()->is_admin)
+                <li class="header_navbar-item"><a href="{{ route('admin.contacts.index') }}">Liên hệ</a></li>
+                @else
+                    <li class="header_navbar-item"><a href="{{ route('contact.index') }}">Liên hệ</a></li>
+                @endif
+            @else
+                <li class="header_navbar-item"><a href="{{ route('contact.index') }}">Liên hệ</a></li>
+            @endauth
+        </ul>
+
+        <div class="header_navbar-btn">
+            <div class="header_navbar-btn-item" id="searchBtn" title="Tìm kiếm" tabindex="0" role="button" aria-label="Mở tìm kiếm">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="header_navbar-search" id="searchBox" aria-hidden="true">
+                <form action="{{ route('products.index') }}" method="GET" role="search">
+                    <input type="search" name="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Tìm kiếm sản phẩm" />
+                </form>
+            </div>
+            <div class="separator"></div>
+
+            @auth
+                <div class="header_navbar-btn-item notification-icon">
+                    <a href="{{ route('notifications.index') }}" aria-label="Thông báo">
+                        <i class="fa-solid fa-bell"></i>
+                        @php $unreadCount = auth()->user()->unreadNotifications->count(); @endphp
+                        @if($unreadCount > 0)
+                            <span class="notification-count" aria-live="polite">{{ $unreadCount }}</span>
+                        @endif
+                    </a>
                 </div>
-            </div>
-
-            <!-- Địa chỉ & SĐT -->
-            <div class="hidden sm:flex text-sm text-gray-500">
-                15A Đô Lương, Nghệ An | 0987 654 321
-            </div>
-
-            <!-- Tài khoản đẩy sát cuối -->
-            <div class="account-area hidden sm:flex sm:items-center">
-                @auth
-                    <!-- Nút thông báo -->
-                    <div class="notification">
-                        <a href="{{ route('notifications.index') }}" class="text-gray-600 hover:text-gray-800" title="Thông báo">
-                            🔔
-                            @php $unreadCount = auth()->user()->unreadNotifications->count(); @endphp
-                            @if($unreadCount > 0)
-                                <span>
-                                    {{ $unreadCount }}
-                                </span>
-                            @endif
-                        </a>
-                    </div>
-
-                    <!-- Dropdown người dùng -->
+                <div class="separator"></div>
+                <div class="header_navbar-btn-item">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-600 bg-white hover:text-gray-800 focus:outline-none transition">
-                                <div>{{ Auth::user()->name }}</div>
-                                <div class="ms-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </button>
+                            <button type="button" aria-haspopup="true" aria-expanded="false" aria-controls="user-menu">{{ Auth::user()->name }} <i class="fa-solid fa-chevron-down"></i></button>
                         </x-slot>
-
-                        <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Tài khoản') }}
-                            </x-dropdown-link>
-
+                        <x-slot name="content" id="user-menu" role="menu" aria-label="Menu người dùng">
+                            <x-dropdown-link :href="route('profile.edit')" role="menuitem">Tài khoản</x-dropdown-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <x-dropdown-link href="#" onclick="event.preventDefault(); this.closest('form').submit();">
-                                    {{ __('Đăng xuất') }}
+                                <x-dropdown-link href="#" onclick="event.preventDefault(); this.closest('form').submit();" role="menuitem">
+                                    Đăng xuất
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
                     </x-dropdown>
-                @else
-                    <div class="flex space-x-6">
-                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
-                            {{ __('Đăng nhập') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                            {{ __('Đăng ký') }}
-                        </x-nav-link>
-                    </div>
-                @endauth
-            </div>
-
-            <!-- Bỏ phần mobile menu button hoàn toàn -->
+                </div>
+                <div class="separator"></div>
+                <div class="header_navbar-btn-item">
+                    <a href="{{ route('cart.index') }}" aria-label="Giỏ hàng">
+                        Giỏ hàng <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                </div>
+            @else
+                <a class="header_navbar-btn-item" href="{{ route('login') }}">Đăng nhập</a>
+                <a class="header_navbar-btn-item" href="{{ route('register') }}">Đăng ký</a>
+                <div class="separator"></div>
+                <div class="header_navbar-btn-item">
+                    <a href="{{ route('login') }}" aria-label="Giỏ hàng">Giỏ hàng <i class="fa-solid fa-cart-shopping"></i></a>
+                </div>
+            @endauth
         </div>
-    </div>
-</nav>
+    </nav>
+</header>
+
+<script>
+    const searchBtn = document.getElementById('searchBtn');
+    const searchBox = document.getElementById('searchBox');
+
+    document.addEventListener('click', function (event) {
+        if (searchBtn.contains(event.target)) {
+            if (searchBox.style.display === 'block') {
+                searchBox.style.display = 'none';
+                searchBox.setAttribute('aria-hidden', 'true');
+            } else {
+                searchBox.style.display = 'block';
+                searchBox.setAttribute('aria-hidden', 'false');
+                searchBox.querySelector('input').focus();
+            }
+        } else if (!searchBox.contains(event.target)) {
+            searchBox.style.display = 'none';
+            searchBox.setAttribute('aria-hidden', 'true');
+        }
+    });
+
+    document.querySelectorAll('.dropdown-icon').forEach(icon => {
+        icon.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const parentLi = this.closest('.header_navbar-dropdown');
+            const submenu = parentLi.querySelector('.header_navbar-submenu');
+
+            document.querySelectorAll('.header_navbar-submenu').forEach(menu => {
+                if (menu !== submenu) {
+                    menu.style.display = 'none';
+                }
+            });
+
+            submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+        });
+    });
+
+    document.addEventListener('click', function () {
+        document.querySelectorAll('.header_navbar-submenu').forEach(menu => {
+            menu.style.display = 'none';
+        });
+    });
+</script>
+</body>
+</html>

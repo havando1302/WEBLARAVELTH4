@@ -10,6 +10,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Phương thức thanh toán</th>
+                        <th>Ghi chú</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
                         <th>Hành động</th>
@@ -19,7 +23,11 @@
                     @foreach($orders as $order)
                         <tr>
                             <td>{{ $order->id }}</td>
-                            <td>{{ $order->user->name }}</td>
+                            <td>{{ $order->name }}</td>
+                            <td>{{ $order->phone }}</td>
+                            <td>{{ $order->address }}</td>
+                            <td>{{ $order->payment_method }}</td>
+                            <td>{{ $order->note ?? '—' }}</td>
                             <td>{{ number_format($order->total) }} VNĐ</td>
                             <td>{{ $order->status }}</td>
                             <td>
