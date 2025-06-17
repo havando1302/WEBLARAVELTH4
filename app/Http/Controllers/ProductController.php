@@ -22,24 +22,38 @@ class ProductController extends Controller
     }
 
     public function index(Request $request)
-    {
-        $categoryId = $request->query('category_id');
-        $query = Product::with('variants');
+{
+    $categoryId = $request->query('category_id');
+    $search = $request->query('search'); // từ khóa tìm kiếm
 
-        if ($categoryId) {
-            $query->where('category_id', $categoryId);
-        }
+    $query = Product::with('variants');
 
-        $products = $query->paginate(12)->withQueryString();
-        $categories = Category::whereNotNull('parent_id')->get();
-        $user = Auth::user();
-
-        if ($user && $user->role === 'admin') {
-            return view('admin.products.index', compact('products', 'categories', 'categoryId'));
-        }
-
-        return view('products.index', compact('products', 'categories', 'categoryId'));
+    // Lọc theo danh mục nếu có
+    if ($categoryId) {
+        $query->where('category_id', $categoryId);
     }
+
+    // Lọc theo từ khóa tìm kiếm (không phân biệt hoa thường)
+    if ($search) {
+        $query->whereRaw("LOWER(name) REGEXP ?", ['(^| )' . strtolower($search)]);
+
+    }
+
+    // Lấy danh sách sản phẩm phân trang
+    $products = $query->paginate(12)->withQueryString();
+
+    // Lấy danh sách danh mục con
+    $categories = Category::whereNotNull('parent_id')->get();
+
+    $user = Auth::user();
+
+    // Chuyển đến view tương ứng
+    if ($user && $user->role === 'admin') {
+        return view('admin.products.index', compact('products', 'categories', 'categoryId', 'search'));
+    }
+
+    return view('products.index', compact('products', 'categories', 'categoryId', 'search'));
+}
 
         /**
          * Hiển thị trang chi tiết sản phẩm.
