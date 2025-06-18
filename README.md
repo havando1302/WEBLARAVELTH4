@@ -60,10 +60,12 @@ Trang web có **giao diện thân thiện**, hình ảnh sản phẩm **đẹp m
 - 📁 Quản lý danh mục sản phẩm
 - 📦 Quản lý đơn hàng (Cập nhật trạng thái, xem chi tiết)
 - 📊 Quản lý tồn kho sản phẩm
-- 💬 Phản hồi và xử lý liên hệ từ người dùng
 
 ---
-
+## Sơ đồ UML && cơ sở dữ liệu
+- Sơ đồ cơ sở dữ liệu
+  
+  ![c04817ea-8195-4c3c-bc18-b8060b5101d9](https://github.com/user-attachments/assets/7b9eb300-0a2b-451b-9a32-f3f8a80ef486)
 ## UML & lưu đồ dự án
 - lưu đồ giỏ hàng & thanh toán
   
@@ -71,5 +73,82 @@ Trang web có **giao diện thân thiện**, hình ảnh sản phẩm **đẹp m
 - lưu đồ quản trị viên(admin)
 
 ![z6690991897745_3890bec6ec4416941441c60ae693a6b1](https://github.com/user-attachments/assets/83c91ebe-a079-44ca-827a-6710426c6c76)
+- lưu đồ đăng nhập tài khoản
+
+  ![Screenshot 2025-06-18 163013](https://github.com/user-attachments/assets/21f85634-bf52-4ab5-8120-7884f1e2d5b1)
+
+## Giao diện web
 
 
+##🔍 Phân Tích Một Số Code Chính
+
+### 📂 `app/Http/Controllers/CartController.php`
+Controllers này xử lý logic cho khu vực giỏ hàng đã đăng nhập
+#### `index()`: xử lý giỏ hàng
+#### Mô tả:
+- Kiểm tra đăng nhập: Nếu chưa đăng nhập → chuyển hướng đến trang login.
+- Lấy giỏ hàng: Lấy các mục trong giỏ hàng của người dùng, kèm thông tin sản phẩm, màu, size, biến thể.
+- Đơn hàng: Lấy tất cả đơn hàng của người dùng kèm sản phẩm trong đơn.
+#### Trả về view:
+- Gửi dữ liệu sang view `cart.blade.php` để hiển thị.
+```php
+ public function index()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để xem giỏ hàng.');
+        }
+
+        $userId = Auth::id();
+        $cartItems = Cart::with(['product', 'color', 'size', 'productVariant'])
+            ->where('user_id', $userId)
+            ->get();
+        $popularProducts = Product::latest()->take(6)->get();
+
+        $orders = Order::where('user_id', $userId)->with('items.product')->get();
+
+        return view('cart', compact('cartItems', 'popularProducts', 'orders'));
+    }
+```
+### 📂 `app/Models/Cart.php`
+Model này đại diện cho bảng giỏ hàng (cart) trong cơ sở dữ liệu, dùng để lưu thông tin các sản phẩm mà người dùng đã thêm vào giỏ hàng.
+### 🔧 `$fillable`: Khai báo các trường được phép gán dữ liệu hàng loạt
+- Cho phép Laravel gán dữ liệu tự động vào các cột trên khi tạo hoặc cập nhật giỏ hàng.
+```php
+protected $fillable = [
+    'user_id',
+    'product_id',
+    'product_variant_id',
+    'quantity',
+    'color_id',
+    'size_id',
+];
+```
+### Các mối quan hệ
+- `product()`: Liên kết đến sản phẩm
+```php
+public function product()
+{
+    return $this->belongsTo(Product::class);
+}
+```
+- `productVariant()`:  Liên kết đến biến thể sản phẩm
+```php
+public function productVariant()
+{
+    return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+}
+```
+- `size()`:Liên kết đến kích thước sản phẩm
+```php
+public function size()
+{
+    return $this->belongsTo(Size::class, 'size_id');
+}
+```
+- `color()`: Liên kết đến màu sắc sản phẩm
+```php
+public function color()
+{
+    return $this->belongsTo(Color::class, 'color_id');
+}
+```
