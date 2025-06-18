@@ -5,7 +5,8 @@
 - **Họ và tên:** Hà Văn Đô  
 - **Mã sinh viên:** 23010406  
 - **Lớp:** Thiết kế web nâng cao - 1-3-24 (COUR01.TH4)
-
+- **Link github:** `https://github.com/havando1302/WEBLARAVELTH4`
+- **Link Demo:** 
 ---
 
 ## 📄 Mô Tả Dự Án
@@ -44,7 +45,23 @@ Trang web có **giao diện thân thiện**, hình ảnh sản phẩm **đẹp m
   - MySQL
 
 ---
-
+## Yêu cầu Security 
+# 1.CSRF
+php
+```
+<form action="{{ route('cart.remove', $item->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
+  @csrf
+@method('DELETE')
+<button type="submit" class="text-red-600 hover:text-red-800 font-medium">Xóa</button>
+ </form>
+```
+# 2. XSS 
+php
+```
+ <div class="ml-4 text-sm font-medium text-gray-900">
+   {{ $item->product->name ?? 'Sản phẩm không có tên' }}
+</div>
+```
 ## 🔑 Các Chức Năng Chính
 
 ### 📦 Chức năng cho người dùng:
@@ -195,3 +212,43 @@ public function color()
     return $this->belongsTo(Color::class, 'color_id');
 }
 ```
+## 🔧 Hướng Dẫn Cài Đặt Nhanh
+
+
+# 1. Clone dự án
+```bash
+git clone [repository-url]
+```
+# 2. Cài đặt các gói phụ thuộc
+```bash
+composer install
+npm install
+```
+# 3. Cấu hình môi trường
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+# 4. Cập nhật thông tin cơ sở dữ liệu trong file .env
+ Khi chạy database cần sửa lại cổng DB_PORT phù hợp với cấu hình máy 
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3366
+DB_DATABASE=project_c_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
+# 5. Tạo cấu trúc bảng và dữ liệu mẫu
+```bash
+php artisan migrate --seed
+```
+# 6. Biên dịch frontend
+```bash
+npm run build
+```
+# 7. Khởi động server
+```bash
+php artisan serve
+```
+Ứng dụng sẽ chạy tại: `http://127.0.0.1:8000`
