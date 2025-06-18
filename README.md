@@ -1,29 +1,69 @@
 
-### Tên dự án: WEB Bán Thời Trang DOHAFASHION
-##
-## Sinh Viên:
-- Họ và tên: Hà Văn ĐÔ
-- Mã sinh viên:23010406
-- Lớp: Thiết kế web nâng cao-1-3-24(COUR01.TH4)
-## Mô tả dự án:
--WEB Bán Thời Trang DOHAFASHION là một nền tảng thương mại điện tử được phát triển bằng Laravel, cho phép người dùng dễ dàng tìm kiếm, lựa chọn và đặt mua các sản phẩm thời trang như quần áo, giày dép, phụ kiện… theo nhiều tiêu chí như danh mục, màu sắc, kích thước. Trang web hỗ trợ trải nghiệm mua sắm hiện đại, bao gồm tính năng giỏ hàng, theo dõi đơn hàng, phân quyền người dùng (admin và khách hàng), và quản lý sản phẩm linh hoạt.
+# 👗 WEB BÁN THỜI TRANG - DOHAFASHION
 
--Với giao diện thân thiện, khả năng hiển thị hình ảnh đẹp mắt và bố cục rõ ràng, hệ thống không chỉ phục vụ nhu cầu mua sắm của khách hàng mà còn hỗ trợ quản trị viên dễ dàng cập nhật sản phẩm, kiểm soát đơn hàng, tồn kho và phản hồi liên hệ từ người dùng.
-## Đối Tượng:
--User
--Admin
-## Công nghệ dự kiến sử dụng:
-- CSDL: MySql
-- Languages: JavaScipt, CSS, Blade, PHP, JavaScript,HTML
-## Chức Năng chính
-- Xem danh sách các sản phẩm
-- Tìm kiếm và lọc sản phẩm
-- Thêm sản phẩm vào giỏ hàng
-- Thanh toán và tạo đơn hàng
-- Đăng ký / Đăng nhập người dùng
-- Quản lý sản phẩm (thêm, sửa, xóa) cho Admin
-- Quản lý danh mục sản phẩm (thêm, sửa, xóa) cho Admin
-- Quản lý đơn hàng ( sửa, cập nhật trạng thái) cho Admin
+## 👤 Sinh Viên Thực Hiện
+- **Họ và tên:** Hà Văn Đô  
+- **Mã sinh viên:** 23010406  
+- **Lớp:** Thiết kế web nâng cao - 1-3-24 (COUR01.TH4)
+
+---
+
+## 📄 Mô Tả Dự Án
+
+**DOHAFASHION** là một nền tảng thương mại điện tử được phát triển bằng framework **Laravel**, nhằm cung cấp trải nghiệm mua sắm thời trang trực tuyến hiện đại và tiện lợi.
+
+Trang web cho phép người dùng:
+- Tìm kiếm, lọc và đặt mua các sản phẩm như: quần áo, giày dép, phụ kiện,...
+- Chọn theo nhiều tiêu chí như **danh mục**, **màu sắc**, **kích thước**,...
+- Quản lý đơn hàng, xem giỏ hàng và theo dõi trạng thái giao hàng.
+
+Hệ thống hỗ trợ **phân quyền người dùng**, bao gồm:
+- **Admin**: quản lý toàn bộ dữ liệu hệ thống.
+- **Khách hàng**: đăng ký, đăng nhập và trải nghiệm mua sắm.
+
+Trang web có **giao diện thân thiện**, hình ảnh sản phẩm **đẹp mắt**, bố cục rõ ràng, đồng thời hỗ trợ quản trị viên cập nhật sản phẩm, theo dõi đơn hàng và quản lý kho hiệu quả.
+
+---
+
+## 👥 Đối Tượng Sử Dụng
+- **Người dùng (User)**: mua hàng, theo dõi đơn hàng, chỉnh sửa thông tin cá nhân.
+- **Quản trị viên (Admin)**: quản lý sản phẩm, danh mục, đơn hàng, liên hệ.
+
+---
+
+## 🛠️ Công Nghệ Sử Dụng
+
+- **Ngôn ngữ lập trình:**
+  - HTML
+  - CSS
+  - JavaScript
+  - PHP (Laravel Framework)
+  - Blade Template Engine
+
+- **Cơ sở dữ liệu:**
+  - MySQL
+
+---
+
+## 🔑 Các Chức Năng Chính
+
+### 📦 Chức năng cho người dùng:
+- 🔍 Xem danh sách sản phẩm
+- 🔎 Tìm kiếm và lọc theo danh mục, màu sắc, kích thước
+- 🛒 Thêm sản phẩm vào giỏ hàng
+- 💳 Thanh toán và tạo đơn hàng
+- 👤 Đăng ký / Đăng nhập
+- 📦 Theo dõi đơn hàng đã đặt
+
+### 🛠️ Chức năng cho quản trị viên:
+- ✅ Quản lý sản phẩm (Thêm / Sửa / Xóa)
+- 📁 Quản lý danh mục sản phẩm
+- 📦 Quản lý đơn hàng (Cập nhật trạng thái, xem chi tiết)
+- 📊 Quản lý tồn kho sản phẩm
+- 💬 Phản hồi và xử lý liên hệ từ người dùng
+
+---
+
 ## UML & lưu đồ dự án
 - lưu đồ giỏ hàng & thanh toán
   
