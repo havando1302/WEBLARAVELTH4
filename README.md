@@ -251,4 +251,4 @@ npm run build
 ```bash
 php artisan serve
 ```
-Ứng dụng sẽ chạy tại: `http://127.0.0.1:8000`
+Ứng dụng sẽ chạy tại: [http://127.0.0.1:8000](http://127.0.0.1:8000)
