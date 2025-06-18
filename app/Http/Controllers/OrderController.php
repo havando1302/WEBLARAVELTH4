@@ -6,7 +6,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\Product; 
-use App\Models\ProductVariant; // Đảm bảo dòng này đúng
+use App\Models\ProductVariant; 
 use Illuminate\Http\Request;
 use App\Notifications\OrderCancelled;
 use Illuminate\Support\Facades\Log;

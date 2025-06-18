@@ -11,11 +11,11 @@ class HomeController extends Controller
         $user = Auth::user();
     
         if ($user && $user->role === 'admin') {
-            // Redirect sang route admin.dashboard, nơi sẽ gọi AdminController@dashboard
+            
             return redirect()->route('admin.dashboard');
         }
     
-        return view('home'); // View cho user thường hoặc guest
+        return view('home');
     }
     
     public function somePage()

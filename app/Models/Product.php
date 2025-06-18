@@ -10,9 +10,6 @@ class Product extends Model
 {
     use HasFactory;
 
-    /**
-     * Các trường có thể gán hàng loạt (mass assignment)
-     */
     protected $fillable = [
         'name',
         'description',
@@ -21,10 +18,6 @@ class Product extends Model
         'image_url',
         'category_id',
     ];
-
-    /**
-     * Mỗi sản phẩm thuộc về một danh sách con (subcategory)
-     */
     public function subcategory()
     {
         return $this->belongsTo(Subcategory::class);

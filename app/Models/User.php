@@ -15,7 +15,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',  // Vai trò người dùng (vd: admin, user)
+        'role', 
     ];
 
     protected $hidden = [

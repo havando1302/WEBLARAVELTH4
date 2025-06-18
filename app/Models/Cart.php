@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    // Nếu bảng không phải là 'carts' theo convention thì khai báo rõ
-    // protected $table = 'carts';
-
     protected $fillable = [
         'user_id',
         'product_id',
@@ -18,20 +15,18 @@ class Cart extends Model
         'size_id',
     ];
 
-    // Quan hệ tới bảng products
+    
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
-    // Quan hệ tới biến thể sản phẩm
-    public function productVariant()
+        public function productVariant()
     {
         return $this->belongsTo(ProductVariant::class, 'product_variant_id');
     }
 
-    // Quan hệ tới bảng colors (nếu có)
-    public function size()
+       public function size()
     {
         return $this->belongsTo(Size::class, 'size_id');
     }

@@ -21,7 +21,7 @@
     background-image: url('{{ asset('assets/img/DALL.webp') }}');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: cover; /* Hoặc 'contain' nếu muốn vừa khung mà không cắt ảnh */
+    background-size: cover; 
     opacity: 0.2; /* Làm mờ ảnh */
     z-index: -1; /* Ảnh nằm dưới nội dung */
     pointer-events: none; /* Không chặn thao tác chuột */
@@ -31,7 +31,7 @@
 
 
 @section('content')
-<div class="modal js_modal" style="display: flex; position: relative;">
+<div class="modal js_modal" style="display: flex; position: relative;opacity:0.7;z-index: 3">
     <div class="modal_body" style="margin: auto; max-width: 500px;">
         <!-- Login Form -->
         <form method="POST" action="{{ route('login') }}" class="auth_form js_login-form" style="display: block;">

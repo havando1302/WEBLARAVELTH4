@@ -10,31 +10,24 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    // Hiển thị giỏ hàng
+    
     public function index()
     {
-        // Kiểm tra đăng nhập
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để xem giỏ hàng.');
         }
 
         $userId = Auth::id();
-
-        // Lấy sản phẩm trong giỏ kèm quan hệ product, color, size, productVariant (nếu có)
         $cartItems = Cart::with(['product', 'color', 'size', 'productVariant'])
             ->where('user_id', $userId)
             ->get();
-
-        // Lấy sản phẩm nổi bật (6 sản phẩm mới nhất)
         $popularProducts = Product::latest()->take(6)->get();
 
-        // Lấy đơn hàng của user, kèm sản phẩm trong đơn hàng
         $orders = Order::where('user_id', $userId)->with('items.product')->get();
 
         return view('cart', compact('cartItems', 'popularProducts', 'orders'));
     }
 
-    // Thêm sản phẩm vào giỏ hàng
     public function add(Request $request, Product $product)
     {
         if (!Auth::check()) {
@@ -51,7 +44,6 @@ class CartController extends Controller
         $userId = Auth::id();
         $quantity = $validated['quantity'] ?? 1;
 
-        // Kiểm tra sản phẩm cùng biến thể, màu, size đã có trong giỏ chưa
         $existingItem = Cart::where('user_id', $userId)
             ->where('product_id', $product->id)
             ->where('color_id', $validated['color_id'])
@@ -60,11 +52,9 @@ class CartController extends Controller
             ->first();
 
         if ($existingItem) {
-            // Cộng dồn số lượng
             $existingItem->quantity += $quantity;
             $existingItem->save();
         } else {
-            // Tạo mới mục giỏ hàng
             Cart::create([
                 'user_id' => $userId,
                 'product_id' => $product->id,
@@ -78,7 +68,6 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Đã thêm vào giỏ hàng.');
     }
 
-    // Xóa sản phẩm khỏi giỏ hàng
     public function remove($id)
     {
         $userId = Auth::id();

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="w-full max-w-screen-xl mx-auto p-4 sm:p-6 lg:p-8">
-    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">🛒 Tydy xin chào quý khách!</h2>
+    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">🛒 DOHAFASHION xin chào quý khách!</h2>
 
     <!-- Tabs -->
     <div class="flex border-b border-gray-200 mb-6">
@@ -45,15 +45,20 @@
                             @foreach($cartItems as $item)
                                 <tr>
                                     <td class="px-6 py-4">
-                                        <div class="flex items-center">
-                                            <img src="{{ $item->product && $item->product->image_url ? asset('storage/' . $item->product->image_url) : asset('images/default-product.png') }}"
-                                                 alt="{{ $item->product->name ?? 'Hình ảnh sản phẩm' }}"
-                                                 onerror="this.onerror=null; this.src='{{ asset('images/default-product.png') }}';"
-                                                 class="w-16 h-16 object-cover rounded border border-gray-200">
-                                            <div class="ml-4 text-sm font-medium text-gray-900">
-                                                {{ $item->product->name ?? 'Sản phẩm không có tên' }}
-                                            </div>
-                                        </div>
+                                    <div class="flex items-center">
+                                      <img
+                                          src="{{ Str::startsWith($item->product->image_url ?? '', 'assets/') 
+                                         ? asset($item->product->image_url) 
+                                         : asset('storage/' . ($item->product->image_url ?? '')) }}"
+                                              alt="{{ $item->product->name ?? 'Hình ảnh sản phẩm' }}"
+                                            class="w-16 h-16 object-cover rounded border border-gray-200"
+                                         >
+
+                                       <div class="ml-4 text-sm font-medium text-gray-900">
+                                            {{ $item->product->name ?? 'Sản phẩm không có tên' }}
+                                         </div>
+                            </div>
+
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-700">
                                         {{ number_format($item->product->price ?? 0) }} VNĐ
