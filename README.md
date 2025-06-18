@@ -5,7 +5,7 @@
 - **Họ và tên:** Hà Văn Đô  
 - **Mã sinh viên:** 23010406  
 - **Lớp:** Thiết kế web nâng cao - 1-3-24 (COUR01.TH4)
-- **Link github:** `https://github.com/havando1302/WEBLARAVELTH4`
+- **Link github:** [Link github](https://github.com/havando1302/WEBLARAVELTH4)
 - **Link Demo:** 
 ---
 
