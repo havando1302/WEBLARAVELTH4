@@ -1,6 +1,8 @@
 
-### Tên dự án: WEB Bán Thời Trang
+### Tên dự án: WEB Bán Thời Trang DOHAFASHION
+- Mô tả: WEB Bán Thời Trang DOHAFASHION là một nền tảng thương mại điện tử được phát triển bằng Laravel, cho phép người dùng dễ dàng tìm kiếm, lựa chọn và đặt mua các sản phẩm thời trang như quần áo, giày dép, phụ kiện… theo nhiều tiêu chí như danh mục, màu sắc, kích thước. Trang web hỗ trợ trải nghiệm mua sắm hiện đại, bao gồm tính năng giỏ hàng, theo dõi đơn hàng, phân quyền người dùng (admin và khách hàng), và quản lý sản phẩm linh hoạt.
 
+Với giao diện thân thiện, khả năng hiển thị hình ảnh đẹp mắt và bố cục rõ ràng, hệ thống không chỉ phục vụ nhu cầu mua sắm của khách hàng mà còn hỗ trợ quản trị viên dễ dàng cập nhật sản phẩm, kiểm soát đơn hàng, tồn kho và phản hồi liên hệ từ người dùng.
 ## Công nghệ dự kiến sử dụng:
 - CSDL: MySql
 - Languages: JavaScipt, CSS, Blade, PHP, JavaScript,HTML
