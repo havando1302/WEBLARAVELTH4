@@ -67,6 +67,19 @@ Trang web có **giao diện thân thiện**, hình ảnh sản phẩm **đẹp m
   
   ![c04817ea-8195-4c3c-bc18-b8060b5101d9](https://github.com/user-attachments/assets/7b9eb300-0a2b-451b-9a32-f3f8a80ef486)
 ## UML & lưu đồ dự án
+- Lưu đồ thêm sản phẩm
+
+  ![themsanpham](https://github.com/user-attachments/assets/5b744b09-1cd7-46e9-bd70-c850d6c867a4)
+- Lưu đồ sửa sản phẩm
+
+  ![suasanpham](https://github.com/user-attachments/assets/8f440e35-2180-4148-8714-f64d0f8fd9d6)
+- Lưu đồ xóa sản phẩm
+
+  ![xoa](https://github.com/user-attachments/assets/9fe9c7cc-e038-447c-8756-cef7ff8ac3ab)
+- Checkout làm việc với giỏ hàng
+
+  ![checkuot](https://github.com/user-attachments/assets/22492071-ce93-4af0-b5d1-801ddfba04d9)
+
 - lưu đồ giỏ hàng & thanh toán
   
 ![z6690930366255_c301dd2bfd56f00487f65ff91d983219](https://github.com/user-attachments/assets/b1fa4125-e771-42e0-9360-f5db3f83da05)
@@ -78,9 +91,37 @@ Trang web có **giao diện thân thiện**, hình ảnh sản phẩm **đẹp m
   ![Screenshot 2025-06-18 163013](https://github.com/user-attachments/assets/21f85634-bf52-4ab5-8120-7884f1e2d5b1)
 
 ## Giao diện web
+### Giao diện user
+-Trang chủ:
 
+![Trangchuuser](https://github.com/user-attachments/assets/9f8754f0-f7a4-4d1c-b10a-5e0e7f00c09f)
+-Product:
 
-##🔍 Phân Tích Một Số Code Chính
+![productuser](https://github.com/user-attachments/assets/741712bd-5344-45ca-bae0-32d4e63d6fac)
+-Giới thiệu:
+
+![gioithieu](https://github.com/user-attachments/assets/cd07cb48-8fc4-455c-8c5a-0d6eacf33da2)
+- Liên hệ:
+
+![lienhe](https://github.com/user-attachments/assets/de387cf1-bb7a-4a59-9ca3-95da95df98e2)
+-Giỏ hàng:
+
+![giỏ hàng](https://github.com/user-attachments/assets/cc20b5d1-d3e7-4d60-8afa-b2df739c0988)
+### Giao diện ADMIN
+- Trang chủ:
+  
+  ![admin](https://github.com/user-attachments/assets/123613c4-0f69-4bc6-ab42-addf4da15608)
+- Quản lý sản phẩm:
+  
+  ![sanpham](https://github.com/user-attachments/assets/e34c950c-3014-4ec5-854c-4a40d5e5ec14)
+- Quản lý danh mục sản phẩm:
+  
+  ![danhmuc](https://github.com/user-attachments/assets/e51c1a36-53fc-42cd-a169-475ef6ad0211)
+- Quản lý đơn hàng:
+
+  ![donhang](https://github.com/user-attachments/assets/d64ae7c9-9fc2-49db-a57d-9f6bd6ccf1c6)
+  
+## 🔍 Phân Tích Một Số Code Chính
 
 ### 📂 `app/Http/Controllers/CartController.php`
 Controllers này xử lý logic cho khu vực giỏ hàng đã đăng nhập
@@ -91,9 +132,11 @@ Controllers này xử lý logic cho khu vực giỏ hàng đã đăng nhập
 - Đơn hàng: Lấy tất cả đơn hàng của người dùng kèm sản phẩm trong đơn.
 #### Trả về view:
 - Gửi dữ liệu sang view `cart.blade.php` để hiển thị.
+
 ```php
  public function index()
     {
+
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để xem giỏ hàng.');
         }
