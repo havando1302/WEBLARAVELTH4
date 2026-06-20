@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <style>
     .admin-orders-page {
-        padding: 30px 0 80px;
+        padding: 0;
     }
 
     .admin-orders-header h1 {

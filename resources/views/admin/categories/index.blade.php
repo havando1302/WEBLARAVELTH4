@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <style>
     .admin-categories-page {
-        padding: 30px 0 80px;
-        max-width: 700px;
+        padding: 0;
+        max-width: 800px;
         margin: 0 auto;
     }
 

@@ -63,6 +63,9 @@ Route::middleware('auth')->group(function () {
             Route::resource('products', ProductController::class);
             Route::resource('categories', CategoryController::class);
             Route::resource('orders', OrderController::class);
+            Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
+            Route::resource('promotions', \App\Http\Controllers\Admin\PromotionController::class);
+            Route::resource('reports', \App\Http\Controllers\Admin\ReportController::class)->only(['index']);
         });
 });
 
