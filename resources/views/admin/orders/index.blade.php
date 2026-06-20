@@ -1,107 +1,160 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto p-4">
-        <h1 class="text-3xl font-bold mb-6">Danh sách đơn hàng</h1>
+<style>
+    .admin-orders-page {
+        padding: 30px 0 80px;
+    }
 
-        <div class="overflow-x-auto">
-            <table class="orders-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Khách hàng</th>
-                        <th>Số điện thoại</th>
-                        <th>Địa chỉ</th>
-                        <th>Phương thức thanh toán</th>
-                        <th>Ghi chú</th>
-                        <th>Tổng tiền</th>
-                        <th>Trạng thái</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($orders as $order)
-                        <tr>
-                            <td>{{ $order->id }}</td>
-                            <td>{{ $order->name }}</td>
-                            <td>{{ $order->phone }}</td>
-                            <td>{{ $order->address }}</td>
-                            <td>{{ $order->payment_method }}</td>
-                            <td>{{ $order->note ?? '—' }}</td>
-                            <td>{{ number_format($order->total) }} VNĐ</td>
-                            <td>{{ $order->status }}</td>
-                            <td>
-                                <a href="{{ route('admin.orders.edit', $order) }}" class="btn-detail">Xem chi tiết</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+    .admin-orders-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1B2A4A;
+        margin-bottom: 24px;
+    }
 
-    <style>
+    .orders-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 16px;
+        overflow: hidden;
+        background: white;
+        border: 1px solid #F3F4F6;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .orders-table thead tr {
+        background: linear-gradient(135deg, #FAFAF8, #F3F4F6);
+    }
+
+    .orders-table th {
+        padding: 16px 18px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #6B7280;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: left;
+    }
+
+    .orders-table td {
+        padding: 14px 18px;
+        border-top: 1px solid #F3F4F6;
+        font-size: 0.9rem;
+        color: #374151;
+    }
+
+    .orders-table tbody tr {
+        transition: background 0.2s;
+    }
+
+    .orders-table tbody tr:hover {
+        background: #FAFAF8;
+    }
+
+    .orders-total-cell {
+        font-weight: 700;
+        color: #DC2626;
+    }
+
+    .order-status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.78rem;
+        font-weight: 600;
+    }
+
+    .status-pending { background: #F3F4F6; color: #6B7280; }
+    .status-processing { background: #FEF3C7; color: #D97706; }
+    .status-shipped { background: #DBEAFE; color: #2563EB; }
+    .status-completed { background: #D1FAE5; color: #059669; }
+    .status-cancelled { background: #FEE2E2; color: #DC2626; }
+
+    .btn-detail {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #1B2A4A, #2D4A7A);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .btn-detail:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(27, 42, 74, 0.3);
+        color: white;
+    }
+
+    @media (max-width: 768px) {
         .orders-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .orders-table thead tr {
-            background-color: #f8fafc;
-            font-weight: bold;
-            text-align: left;
+            font-size: 0.82rem;
         }
 
         .orders-table th,
         .orders-table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 10px 12px;
         }
+    }
+</style>
 
-        .orders-table tbody tr:hover {
-            background-color: #f1f5f9;
-        }
+<div class="admin-orders-page">
+    <div class="admin-orders-header">
+        <h1><i class="fa-solid fa-box" style="color: #C8956C; margin-right: 8px;"></i> Danh Sách Đơn Hàng</h1>
+    </div>
 
-        .btn-detail {
-            background-color: #3b82f6;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            text-decoration: none;
-            transition: background-color 0.2s;
-        }
-
-        .btn-detail:hover {
-            background-color: #2563eb;
-        }
-
-        /* Optional dark mode support */
-        .dark .orders-table {
-            background-color: #1e293b;
-            color: #f1f5f9;
-        }
-
-        .dark .orders-table thead tr {
-            background-color: #334155;
-        }
-
-        .dark .orders-table tbody tr:hover {
-            background-color: #475569;
-        }
-
-        .dark .btn-detail {
-            background-color: #60a5fa;
-            color: #1e293b;
-        }
-
-        .dark .btn-detail:hover {
-            background-color: #3b82f6;
-        }
-    </style>
+    <div style="overflow-x: auto;">
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Khách hàng</th>
+                    <th>SĐT</th>
+                    <th>Địa chỉ</th>
+                    <th>Thanh toán</th>
+                    <th>Ghi chú</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($orders as $order)
+                    <tr>
+                        <td><strong>#{{ $order->id }}</strong></td>
+                        <td>{{ $order->name }}</td>
+                        <td>{{ $order->phone }}</td>
+                        <td>{{ $order->address }}</td>
+                        <td>{{ $order->payment_method }}</td>
+                        <td>{{ $order->note ?? '—' }}</td>
+                        <td class="orders-total-cell">{{ number_format($order->total) }} VNĐ</td>
+                        <td>
+                            <span class="order-status-badge
+                                {{ $order->status === 'completed' ? 'status-completed' :
+                                   ($order->status === 'shipped' ? 'status-shipped' :
+                                   ($order->status === 'processing' ? 'status-processing' :
+                                   ($order->status === 'cancelled' ? 'status-cancelled' : 'status-pending'))) }}">
+                                {{ $order->status }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.orders.edit', $order) }}" class="btn-detail">
+                                <i class="fa-solid fa-eye"></i> Chi tiết
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 @endsection

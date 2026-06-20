@@ -2,91 +2,182 @@
 
 @section('content')
 <style>
-    /* Căn giữa nội dung chính của trang */
-    .category-container {
-        max-width: 600px;
-        margin: 0 auto; /* căn giữa ngang */
-        padding: 20px;
+    .admin-categories-page {
+        padding: 30px 0 80px;
+        max-width: 700px;
+        margin: 0 auto;
     }
 
-    /* Danh sách danh mục */
-    .list-group {
-        counter-reset: category-counter; /* Khởi tạo bộ đếm */
-        padding-left: 0;
+    .admin-cat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .admin-cat-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #1B2A4A;
+    }
+
+    .admin-cat-add-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        background: linear-gradient(135deg, #1B2A4A, #2D4A7A);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        transition: all 0.3s;
+    }
+
+    .admin-cat-add-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(27, 42, 74, 0.3);
+        color: white;
+    }
+
+    .cat-list {
         list-style: none;
+        padding: 0;
+        margin: 0;
+        counter-reset: cat-counter;
     }
 
-    /* Từng mục danh mục */
-    .list-group-item {
+    .cat-item {
         display: flex;
-        justify-content: space-between; /* Tên và nút ở 2 đầu */
-        align-items: center; /* căn giữa theo chiều dọc */
-        padding: 10px 15px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        background: white;
+        border: 1px solid #F3F4F6;
+        border-radius: 12px;
         margin-bottom: 10px;
-        position: relative;
+        transition: all 0.3s ease;
+        counter-increment: cat-counter;
     }
 
-    /* Thứ tự số ở đầu từng mục */
-    .list-group-item::before {
-        counter-increment: category-counter;
-        content: counter(category-counter) ". ";
-        font-weight: bold;
-        margin-right: 10px;
-        color: #333;
-        position: absolute;
-        left: 15px;
+    .cat-item:hover {
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        border-color: #E8C5A8;
+        transform: translateX(4px);
     }
 
-    /* Phần tên danh mục căn lề trái, có khoảng cách bên trái do số thứ tự */
-    .category-name {
-        margin-left: 30px;
-        flex-grow: 1; /* chiếm hết khoảng trống */
-        font-size: 1.1rem;
-    }
-
-    /* Container chứa nút sửa xóa */
-    .action-buttons {
-        white-space: nowrap; /* tránh nút bị xuống dòng */
+    .cat-item-left {
         display: flex;
-        gap: 5px;
+        align-items: center;
+        gap: 14px;
     }
 
-    /* Button sửa và xóa */
-    .btn-sm {
-        padding: 5px 10px;
+    .cat-item-number {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #FDF8F3, #F5E6D0);
+        border-radius: 8px;
+        font-weight: 700;
         font-size: 0.85rem;
+        color: #A67548;
+    }
+
+    .cat-item-number::before {
+        content: counter(cat-counter);
+    }
+
+    .cat-item-name {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: #1A1A1A;
+    }
+
+    .cat-item-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .cat-btn-edit {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 14px;
+        background: #FEF3C7;
+        color: #92400E;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .cat-btn-edit:hover {
+        background: #F59E0B;
+        color: white;
+    }
+
+    .cat-btn-delete {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 14px;
+        background: #FEE2E2;
+        color: #DC2626;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .cat-btn-delete:hover {
+        background: #DC2626;
+        color: white;
+    }
+
+    .cat-empty {
+        text-align: center;
+        padding: 40px;
+        color: #9CA3AF;
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #F3F4F6;
     }
 </style>
 
-<div class="category-container">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>Danh sách danh mục sản phẩm</h1>
-        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
-            + Thêm danh mục sản phẩm
+<div class="admin-categories-page">
+    <div class="admin-cat-header">
+        <h1><i class="fa-solid fa-tags" style="color: #C8956C; margin-right: 8px;"></i> Danh Mục Sản Phẩm</h1>
+        <a href="{{ route('admin.categories.create') }}" class="admin-cat-add-btn">
+            <i class="fa-solid fa-plus"></i> Thêm danh mục
         </a>
     </div>
 
-    {{-- Hiển thị danh sách danh mục con --}}
     @if(isset($mainCategory) && $mainCategory->children->count())
-        <ul class="list-group">
+        <ul class="cat-list">
             @foreach($mainCategory->children as $category)
-                <li class="list-group-item">
-                    <span class="category-name">{{ $category->name }}</span>
-
-                    <div class="action-buttons">
-                        {{-- Nút sửa --}}
-                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-warning">
-                            <i class="fa fa-edit"></i> Sửa
+                <li class="cat-item">
+                    <div class="cat-item-left">
+                        <div class="cat-item-number"></div>
+                        <span class="cat-item-name">{{ $category->name }}</span>
+                    </div>
+                    <div class="cat-item-actions">
+                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="cat-btn-edit">
+                            <i class="fa-solid fa-pen"></i> Sửa
                         </a>
-
-                        {{-- Form xóa --}}
-                        <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa danh mục này không?');">
+                        <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Bạn có chắc muốn xóa?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash"></i> Xóa
+                            <button type="submit" class="cat-btn-delete">
+                                <i class="fa-solid fa-trash"></i> Xóa
                             </button>
                         </form>
                     </div>
@@ -94,7 +185,10 @@
             @endforeach
         </ul>
     @else
-        <p>Không có danh mục nào.</p>
+        <div class="cat-empty">
+            <i class="fa-solid fa-folder-open" style="font-size: 2rem; margin-bottom: 12px; display: block; color: #D1D5DB;"></i>
+            Không có danh mục nào.
+        </div>
     @endif
 </div>
 @endsection

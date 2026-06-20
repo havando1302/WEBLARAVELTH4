@@ -2,97 +2,242 @@
 
 @section('content')
 <style>
-    .variant-label {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 9999px;
-    background-color: #e0e7ff; /* xanh nhẹ */
-    color: #1e3a8a; /* xanh đậm */
-    font-size: 0.875rem;
-    font-weight: 500;
-    user-select: none;
-    box-shadow: 0 1px 3px rgba(30, 58, 138, 0.2);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+    .admin-products-page {
+        padding: 30px 0 80px;
+    }
 
-/* Nhãn kích cỡ có style khác */
-.variant-label.size {
-    background-color: #bfdbfe; /* xanh nhạt hơn */
-    color: #1e40af;
-    font-weight: 600;
-}
+    .admin-products-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
 
-/* Hover hiệu ứng cho cả hai */
-.variant-label:hover {
-    background-color: #3b82f6;
-    color: #ffffff;
-    cursor: default;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.7);
-}
+    .admin-products-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1B2A4A;
+    }
+
+    .admin-add-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, #1B2A4A, #2D4A7A);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+    }
+
+    .admin-add-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(27, 42, 74, 0.3);
+        color: white;
+    }
+
+    .admin-products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+    }
+
+    .admin-product-card {
+        background: white;
+        border-radius: 16px;
+        border: 1px solid #F3F4F6;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .admin-product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .admin-product-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .admin-product-body {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .admin-product-name {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #1A1A1A;
+        margin-bottom: 6px;
+    }
+
+    .admin-product-price {
+        font-weight: 700;
+        color: #DC2626;
+        font-size: 1.05rem;
+        margin-bottom: 16px;
+    }
+
+    .admin-variant-section {
+        margin-bottom: 12px;
+    }
+
+    .admin-variant-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #6B7280;
+        margin-bottom: 6px;
+    }
+
+    .admin-variant-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .av-pill {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+    .av-pill-color {
+        background: #FDF8F3;
+        color: #A67548;
+        border: 1px solid #E8C5A8;
+    }
+
+    .av-pill-size {
+        background: #E8EDF5;
+        color: #2D4A7A;
+        border: 1px solid #C7D2E4;
+    }
+
+    .av-pill:hover {
+        transform: scale(1.05);
+    }
+
+    .admin-product-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: auto;
+        padding-top: 16px;
+        border-top: 1px solid #F3F4F6;
+    }
+
+    .admin-btn-edit {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px;
+        background: #FEF3C7;
+        color: #92400E;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+    }
+
+    .admin-btn-edit:hover {
+        background: #F59E0B;
+        color: white;
+    }
+
+    .admin-btn-delete {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 16px;
+        background: #FEE2E2;
+        color: #DC2626;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .admin-btn-delete:hover {
+        background: #DC2626;
+        color: white;
+    }
 </style>
-<div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6 text-gray-800">Danh sách sản phẩm</h1>
 
-    <a href="{{ route('admin.products.create') }}"
-       class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
-        + Thêm sản phẩm mới
-    </a>
+<div class="admin-products-page">
+    <div class="admin-products-header">
+        <h1><i class="fa-solid fa-shirt" style="color: #C8956C; margin-right: 8px;"></i> Danh Sách Sản Phẩm</h1>
+        <a href="{{ route('admin.products.create') }}" class="admin-add-btn">
+            <i class="fa-solid fa-plus"></i> Thêm sản phẩm
+        </a>
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="admin-products-grid">
         @foreach($products as $product)
-            <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col">
-                {{-- Ảnh sản phẩm chính --}}
-    <img 
-        src="{{ $product->image_url
-            ? (Str::startsWith($product->image_url, 'assets/') 
-                ? asset($product->image_url) 
-                : asset('storage/' . $product->image_url)) 
-            : 'https://via.placeholder.com/150' 
-        }}" 
-        alt="{{ $product->name }}"
-        class="w-full h-40 object-cover rounded-md mb-4"
-    >
+            <div class="admin-product-card">
+                <img
+                    src="{{ $product->image_url
+                        ? (Str::startsWith($product->image_url, 'assets/')
+                            ? asset($product->image_url)
+                            : asset('storage/' . $product->image_url))
+                        : 'https://via.placeholder.com/150' }}"
+                    alt="{{ $product->name }}"
+                    class="admin-product-img">
 
-    {{-- Tên và giá --}}
-    <h3 class="text-lg font-semibold text-gray-800">{{ $product->name }}</h3>
-    <p class="text-gray-600">{{ number_format($product->price) }} VNĐ</p>
-                @if($product->variants->count())
-                    <div class="mt-4">
-                        <p class="text-sm font-medium text-gray-700">Màu sắc:</p>
-                        <div class="flex flex-wrap">
-                            {{-- Lấy danh sách color_name duy nhất --}}
-                            @foreach($product->variants->pluck('color_name')->unique() as $color)
-                                <span class="variant-label">{{ $color }}</span>
-                            @endforeach
+                <div class="admin-product-body">
+                    <h3 class="admin-product-name">{{ $product->name }}</h3>
+                    <p class="admin-product-price">{{ number_format($product->price) }} VNĐ</p>
+
+                    @if($product->variants->count())
+                        <div class="admin-variant-section">
+                            <p class="admin-variant-label">Màu sắc</p>
+                            <div class="admin-variant-pills">
+                                @foreach($product->variants->pluck('color_name')->unique() as $color)
+                                    <span class="av-pill av-pill-color">{{ $color }}</span>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <p class="text-sm font-medium text-gray-700">Kích cỡ:</p>
-                        <div class="flex flex-wrap">
-                            {{-- Lấy danh sách size_name duy nhất --}}
-                            @foreach($product->variants->pluck('size_name')->unique() as $size)
-                                <span class="variant-label size">{{ $size }}</span>
-                            @endforeach
+                        <div class="admin-variant-section">
+                            <p class="admin-variant-label">Kích cỡ</p>
+                            <div class="admin-variant-pills">
+                                @foreach($product->variants->pluck('size_name')->unique() as $size)
+                                    <span class="av-pill av-pill-size">{{ $size }}</span>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
 
-                {{-- Nút sửa/xóa --}}
-                <div class="mt-4 flex space-x-2">
-                    <a href="{{ route('admin.products.edit', $product) }}"
-                       class="bg-yellow-500 hover:bg-yellow-600 text-black px-3 py-1 rounded">
-                        Sửa
-                    </a>
-                    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                class="bg-red-500 hover:bg-red-600 text-black px-3 py-1 rounded"
-                                onclick="return confirm('Bạn có chắc muốn xóa?')">
-                            Xóa
-                        </button>
-                    </form>
+                    <div class="admin-product-actions">
+                        <a href="{{ route('admin.products.edit', $product) }}" class="admin-btn-edit">
+                            <i class="fa-solid fa-pen"></i> Sửa
+                        </a>
+                        <form action="{{ route('admin.products.destroy', $product) }}" method="POST" style="display:inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="admin-btn-delete" onclick="return confirm('Bạn có chắc muốn xóa?')">
+                                <i class="fa-solid fa-trash"></i> Xóa
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         @endforeach
